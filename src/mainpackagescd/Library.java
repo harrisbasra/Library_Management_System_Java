@@ -6,12 +6,9 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Library {
-
-    List<String> IDs = new ArrayList<>();
-    List<String> Names = new ArrayList<>();
-    List<String> Authors = new ArrayList<>();
-    List<String> years = new ArrayList<>();
     String catalogueBackup;
+    List<BookClass> books = new ArrayList<>();
+    
     Library(String fileName) {
 
         catalogueBackup = fileName;
@@ -19,10 +16,7 @@ public class Library {
 
         for (String book : Books) {
             String[] Elements = book.split(",");
-            IDs.add(Elements[0]);
-            Names.add(Elements[1]);
-            Authors.add(Elements[2]);
-            years.add(Elements[3]);
+            books.add(new BookClass(Integer.parseInt(Elements[0]), Elements[1], Elements[2], Integer.parseInt(Elements[3])));
         }
 
         System.out.println("Loaded Books from file books.txt");
@@ -30,8 +24,10 @@ public class Library {
     void displayBooks(){
         System.out.println("This Library has following Books: ");
         int serialNumber = 1;
-        for (int i=0;i<IDs.size();i++, serialNumber++){
-            System.out.println(serialNumber+") ID: "+ IDs.get(i)+" Book: "+ Names.get(i) +" written by : "+Authors.get(i)+"("+years.get(i)+")");
+        for (int i=0;i<books.size();i++, serialNumber++){
+            System.out.print(serialNumber+") ");
+            books.get(i).displayDetails();
+            System.out.println("\n");
         }
     }
     void addBook(){
@@ -51,10 +47,7 @@ public class Library {
 
         BookClass book = new BookClass(Title, Auth, year);
 
-        IDs.add(String.valueOf(book.id));
-        Names.add(String.valueOf(book.title));
-        Authors.add(String.valueOf(book.author));
-        years.add(String.valueOf(book.year));
+        books.add(book);
 
         writeFile("books.txt", String.valueOf(book.id)+","+book.title+","+book.author+","+book.year, true);
 
@@ -63,14 +56,14 @@ public class Library {
     int viewBookByID(int id){
         int regex = -1;
 
-        for(int i=0;i<IDs.size();i++){
-            if(String.valueOf(id).equals(IDs.get(i))){
+        for(int i=0;i<books.size();i++){
+            if(id == books.get(i).id){
                 regex = i;
             }
         }
 
         if(regex!=-1){
-            System.out.println("ID: "+ IDs.get(regex)+" Book: "+ Names.get(regex) +" written by : "+Authors.get(regex)+"("+years.get(regex)+")");
+            System.out.println("ID: "+ books.get(regex).id +" Book: "+ books.get(regex).title +" written by : "+books.get(regex).author+"("+books.get(regex).year+")");
         }
         else {
             System.out.println("No Book found against the provided ID");
@@ -85,8 +78,8 @@ public class Library {
 
         System.out.println("Which book do you want to delete: ");
 
-        for (int i=0;i<IDs.size();i++){
-            System.out.println("ID: "+ IDs.get(i)+" Book: "+ Names.get(i) +" written by : "+Authors.get(i)+"("+years.get(i)+")");
+        for (BookClass book : books) {
+            System.out.println("ID: " + book.id + " Book: " + book.title + " written by : " + book.author + "(" + book.year + ")");
         }
 
         System.out.print("\nEnter ID: ");
@@ -95,31 +88,15 @@ public class Library {
         int regex = this.viewBookByID(ID);
 
         if(regex!=-1){
-            IDs.remove(regex);
-            Names.remove(regex);
-            Authors.remove(regex);
-            years.remove(regex);
+            books.remove(regex);
             System.out.println("The above mentioned book was removed successfully");
         }
 
-        this.saveCatalogue();
+        //this.saveCatalogue();
 
     }
-    void saveCatalogue(){
 
-        for(int i=0;i<IDs.size();i++){
-            if(i==0){
-                writeFile(catalogueBackup, IDs.get(i)+","+Names.get(i)+","+Authors.get(i)+","+years.get(i), false);
-            }
-            else{
-                writeFile(catalogueBackup, IDs.get(i)+","+Names.get(i)+","+Authors.get(i)+","+years.get(i), true);
-            }
-        }
-
-        System.out.println(Names.size()+"Data written to file successfully");
-
-    }
-    public static boolean writeFile(String fileName, String textToWrite, boolean mode) {
+    public static void writeFile(String fileName, String textToWrite, boolean mode) {
         try {
             FileWriter fileWriter = new FileWriter(fileName, mode);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -128,10 +105,8 @@ public class Library {
             bufferedWriter.newLine(); // Add a newline character for clarity
 
             bufferedWriter.close();
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+        } catch (IOException ignored) {
+
         }
     }
     public static String readFile(String fileName) {
@@ -147,8 +122,7 @@ public class Library {
             }
 
             bufferedReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
             return null;
         }
 
@@ -160,10 +134,10 @@ public class Library {
         String editedName = "";
         String editedAuthor = "";
 
-        System.out.println("Which book do you want to edit: ");
+        System.out.println("Which book do you want to delete: ");
 
-        for (int i=0;i<IDs.size();i++){
-            System.out.println("ID: "+ IDs.get(i)+" Book: "+ Names.get(i) +" written by : "+Authors.get(i)+"("+years.get(i)+")");
+        for (BookClass book : books) {
+            System.out.println("ID: " + book.id + " Book: " + book.title + " written by : " + book.author + "(" + book.year + ")");
         }
 
         System.out.print("\nEnter ID: ");
@@ -180,18 +154,18 @@ public class Library {
 
             if(!Objects.equals(editedName, "-1")){
                 if(!Objects.equals(editedName, "")){
-                    Names.set(regex, editedName);
+                    books.get(regex).title = editedName;
                 }
             }
 
             if(!Objects.equals(editedAuthor, "-1")){
                 if(!Objects.equals(editedAuthor, "")){
-                    Authors.set(regex, editedAuthor);
+                    books.get(regex).author = editedAuthor;
                 }
             }
         }
 
-        this.saveCatalogue();
+        //this.saveCatalogue();
     }
     void displayMenu(){
 
