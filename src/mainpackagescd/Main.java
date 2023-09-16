@@ -4,13 +4,18 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        BookClass.nextId = 0;
-        Scanner sc = new Scanner(System.in);
-        int index = -1;
+        Book.nextId = 0;
+
+//        Scanner sc = new Scanner(System.in);
+//        int index = -1;
+
+
+        //..............................................................................................
 
         Library library = new Library("books.txt");
+//        library.displayMenu();
 
-        library.displayMenu();
+        //..............................................................................................
 
 
 //        String Auth, Title;
@@ -30,6 +35,17 @@ public class Main {
 
 //        BookClass book = new BookClass(Title, Auth, year);
 //        book.Print();
+
+        //..............................................................................................
+//        String[] auth = {"AuthA", "AuthB", "AuthC"};
+//
+//        Item book = new Book("ABC", "XYZ", 123);
+//        Item mag = new Magazine("ABC", auth, "Publisher XYZ");
+//        Item akhbaar = new Newspaper("ABC", "MM-DD-YYYY", "Publisher XYZ");
+//
+//        library.dynamicallyIdentify(book);
+//        library.dynamicallyIdentify(mag);
+//        library.dynamicallyIdentify(akhbaar);
 
 
     }

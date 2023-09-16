@@ -7,8 +7,9 @@ import java.util.Scanner;
 
 public class Library {
     String catalogueBackup;
-    List<BookClass> books = new ArrayList<>();
-    
+    List<Book> books = new ArrayList<>();
+
+    //..........................................................................................
     Library(String fileName) {
 
         catalogueBackup = fileName;
@@ -16,7 +17,7 @@ public class Library {
 
         for (String book : Books) {
             String[] Elements = book.split(",");
-            books.add(new BookClass(Integer.parseInt(Elements[0]), Elements[1], Elements[2], Integer.parseInt(Elements[3])));
+            books.add(new Book(Integer.parseInt(Elements[0]), Elements[1], Elements[2], Integer.parseInt(Elements[3])));
         }
 
         System.out.println("Loaded Books from file books.txt");
@@ -27,7 +28,6 @@ public class Library {
         for (int i=0;i<books.size();i++, serialNumber++){
             System.out.print(serialNumber+") ");
             books.get(i).displayDetails();
-            System.out.println("\n");
         }
     }
     void addBook(){
@@ -45,7 +45,7 @@ public class Library {
         System.out.print("Enter the year of publication of the Book : ");
         year = sc.nextInt();
 
-        BookClass book = new BookClass(Title, Auth, year);
+        Book book = new Book(Title, Auth, year);
 
         books.add(book);
 
@@ -78,7 +78,7 @@ public class Library {
 
         System.out.println("Which book do you want to delete: ");
 
-        for (BookClass book : books) {
+        for (Book book : books) {
             System.out.println("ID: " + book.id + " Book: " + book.title + " written by : " + book.author + "(" + book.year + ")");
         }
 
@@ -95,7 +95,6 @@ public class Library {
         //this.saveCatalogue();
 
     }
-
     public static void writeFile(String fileName, String textToWrite, boolean mode) {
         try {
             FileWriter fileWriter = new FileWriter(fileName, mode);
@@ -136,7 +135,7 @@ public class Library {
 
         System.out.println("Which book do you want to delete: ");
 
-        for (BookClass book : books) {
+        for (Book book : books) {
             System.out.println("ID: " + book.id + " Book: " + book.title + " written by : " + book.author + "(" + book.year + ")");
         }
 
@@ -201,5 +200,18 @@ public class Library {
             }
         }
 
+    }
+    //..........................................................................................
+    void dynamicallyIdentify(Item item){
+        if(item instanceof Book){
+            System.out.println("Book Identified");
+            item.displayDetails();
+        } else if (item instanceof Magazine) {
+            System.out.println("Magazine Identified");
+            item.displayDetails();
+        } else if (item instanceof Newspaper) {
+            System.out.println("Newspaper Identified");
+            item.displayDetails();
+        }
     }
 }
