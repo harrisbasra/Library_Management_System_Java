@@ -6,10 +6,15 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Library {
+
     String catalogueBackup;
     List<Book> books = new ArrayList<>();
+    List<Magazine> magazines = new ArrayList<>();
+    List<Newspaper> newspapers = new ArrayList<>();
+    List<Borrower> borrowers = new ArrayList<>();
 
     //..........................................................................................
+
     Library(String fileName) {
 
         catalogueBackup = fileName;
@@ -17,7 +22,7 @@ public class Library {
 
         for (String book : Books) {
             String[] Elements = book.split(",");
-            books.add(new Book(Integer.parseInt(Elements[0]), Elements[1], Elements[2], Integer.parseInt(Elements[3])));
+            books.add(new Book(Integer.parseInt(Elements[0]),Integer.parseInt(Elements[1]), Elements[2], Elements[3], Integer.parseInt(Elements[4]), Integer.parseInt(Elements[5]), Integer.parseInt(Elements[6]) ));
         }
 
         System.out.println("Loaded Books from file books.txt");
@@ -35,6 +40,7 @@ public class Library {
         Scanner sc = new Scanner(System.in);
         String Auth, Title;
         int year;
+        double price;
 
         System.out.print("Enter the title of the Book : ");
         Title = sc.nextLine();
@@ -45,7 +51,10 @@ public class Library {
         System.out.print("Enter the year of publication of the Book : ");
         year = sc.nextInt();
 
-        Book book = new Book(Title, Auth, year);
+        System.out.print("Enter the price of the Book : ");
+        price = sc.nextDouble();
+
+        Book book = new Book(1, Title, Auth, year, 0,price);
 
         books.add(book);
 
@@ -67,6 +76,42 @@ public class Library {
         }
         else {
             System.out.println("No Book found against the provided ID");
+        }
+
+        return regex;
+    }
+    int viewMagzineByID(int id){
+        int regex = -1;
+
+        for(int i=0;i<magazines.size();i++){
+            if(id == magazines.get(i).id){
+                regex = i;
+            }
+        }
+
+        if(regex!=-1){
+            magazines.get(regex).displayDetails();
+        }
+        else {
+            System.out.println("No Magazine found against the provided ID");
+        }
+
+        return regex;
+    }
+    int viewNewsPaperByID(int id){
+        int regex = -1;
+
+        for(int i=0;i<newspapers.size();i++){
+            if(id == newspapers.get(i).id){
+                regex = i;
+            }
+        }
+
+        if(regex!=-1){
+            newspapers.get(regex).displayDetails();
+        }
+        else {
+            System.out.println("No Newspapers found against the provided ID");
         }
 
         return regex;
@@ -201,7 +246,9 @@ public class Library {
         }
 
     }
+
     //..........................................................................................
+
     void dynamicallyIdentify(Item item){
         if(item instanceof Book){
             System.out.println("Book Identified");
@@ -213,5 +260,93 @@ public class Library {
             System.out.println("Newspaper Identified");
             item.displayDetails();
         }
+    }
+
+    //...........................................................................................
+
+    void borrowItem(Borrower borrower){
+        int ID = -1;
+        int option = 1;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("What do you want to borrow: \n1. Book\n2. Magazine \n3. Newspaper\nEnter Serial No:");
+        option = sc.nextInt();
+
+        if(option==1){
+
+            System.out.println("Which book do you want to borrow: ");
+
+            for (Book book : books) {
+                System.out.println("ID: " + book.id + " Book: " + book.title + " written by : " + book.author + "(" + book.year + ")");
+            }
+
+            System.out.print("\nEnter ID: ");
+            ID = sc.nextInt();
+
+            int regex = this.viewBookByID(ID);
+            if(regex!=-1){
+                if(!books.get(regex).isBorrowed){
+                    books.get(regex).isBorrowed = true;
+                    borrower.borrowedItems.add(books.get(regex));
+                    books.get(regex).popularityCount++;
+                    System.out.println("Person: "+borrower.name+" has borrowed book: "+books.get(regex).title);
+                }
+                else {
+                    System.out.println("Item is already borrowed");
+                }
+            }
+
+        }
+        if(option==2){
+
+            System.out.println("Which Magazine do you want to borrow: ");
+
+            for (Magazine magazine : magazines) {
+                magazine.displayDetails();
+            }
+
+            System.out.print("\nEnter ID: ");
+            ID = sc.nextInt();
+
+            int regex = this.viewMagzineByID(ID);
+            if(regex!=-1){
+                if(!magazines.get(regex).isBorrowed){
+                    magazines.get(regex).isBorrowed = true;
+                    borrower.borrowedItems.add(magazines.get(regex));
+                    magazines.get(regex).popularityCount++;
+                    System.out.println("Person: "+borrower.name+" has borrowed magazine: "+magazines.get(regex).title);
+                }
+                else {
+                    System.out.println("Item is already borrowed");
+                }
+            }
+
+        }
+        if(option==3){
+
+            System.out.println("Which newspaper do you want to borrow: ");
+
+            for (Newspaper newspaper : newspapers) {
+                newspaper.displayDetails();
+            }
+
+            System.out.print("\nEnter ID: ");
+            ID = sc.nextInt();
+
+            int regex = this.viewNewsPaperByID(ID);
+            if(regex!=-1){
+                if(!newspapers.get(regex).isBorrowed){
+                    newspapers.get(regex).isBorrowed = true;
+                    borrower.borrowedItems.add(newspapers.get(regex));
+                    newspapers.get(regex).popularityCount++;
+                    System.out.println("Person: "+borrower.name+" has borrowed newspaper: "+newspapers.get(regex).title);
+                }
+                else {
+                    System.out.println("Item is already borrowed");
+                }
+            }
+
+        }
+
     }
 }

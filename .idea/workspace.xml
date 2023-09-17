@@ -4,15 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd06deca-82d9-4cee-b846-06edc76f0264" name="Changes" comment="Task 2-B2 Back On Track">
-      <change afterPath="$PROJECT_DIR$/src/mainpackagescd/Configuration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mainpackagescd/Item.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mainpackagescd/Magazine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mainpackagescd/Newspaper.java" afterDir="false" />
+    <list default="true" id="dd06deca-82d9-4cee-b846-06edc76f0264" name="Changes" comment="Task 2-E Done">
+      <change afterPath="$PROJECT_DIR$/src/mainpackagescd/Borrower.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mainpackagescd/BookClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainpackagescd/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/books.txt" beforeDir="false" afterPath="$PROJECT_DIR$/books.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainpackagescd/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainpackagescd/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainpackagescd/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainpackagescd/Item.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mainpackagescd/Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainpackagescd/Library.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainpackagescd/Magazine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainpackagescd/Magazine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mainpackagescd/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainpackagescd/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainpackagescd/Newspaper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainpackagescd/Newspaper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +23,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -104,7 +105,15 @@
       <option name="project" value="LOCAL" />
       <updated>1694888938218</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Task 2-E Done">
+      <option name="closed" value="true" />
+      <created>1694891052429</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1694891052429</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -124,6 +133,7 @@
     <MESSAGE value="Task 2-B" />
     <MESSAGE value="Task 2-B2" />
     <MESSAGE value="Task 2-B2 Back On Track" />
-    <option name="LAST_COMMIT_MESSAGE" value="Task 2-B2 Back On Track" />
+    <MESSAGE value="Task 2-E Done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Task 2-E Done" />
   </component>
 </project>

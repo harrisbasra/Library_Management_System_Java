@@ -29,7 +29,7 @@ public class Magazine extends Item {
     }
 
     public void displayDetails(){
-        System.out.println("ID: "+ id + " Title: " + title + " by Company: " + publisherCompany + ". The Authors are: ");
+        System.out.println("ID: "+ id + " Title: " + title + " by Company: " + publisherCompany + " with popularity of: "+ popularityCount + " priced at : $"+ itemPrice + ". The Authors are: ");
         for (String author : authors) {
             System.out.println(author);
         }

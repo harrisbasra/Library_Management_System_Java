@@ -12,7 +12,7 @@ public class Main {
 
         //..............................................................................................
 
-        Library library = new Library("books.txt");
+        Library l1 = new Library("books.txt");
 //        library.displayMenu();
 
         //..............................................................................................
@@ -46,6 +46,11 @@ public class Main {
 //        library.dynamicallyIdentify(book);
 //        library.dynamicallyIdentify(mag);
 //        library.dynamicallyIdentify(akhbaar);
+        //...............................................................................................
+
+        Borrower b1 = new Borrower("HarreyBe");
+        l1.borrowItem(b1);
+        l1.borrowItem(b1);
 
 
     }

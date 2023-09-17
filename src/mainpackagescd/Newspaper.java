@@ -7,7 +7,7 @@ public class Newspaper extends Item {
 
     Newspaper(String t, String d, String pC){
 
-        itemType = 2;
+        itemType = 3;
         id = nextId++;
         title = t;
         date = d;
@@ -18,7 +18,7 @@ public class Newspaper extends Item {
 
     Newspaper(int i, String t, String d, String pC){
 
-        itemType = 2;
+        itemType = 3;
         id = i;
         title = t;
         date = d;
@@ -28,6 +28,6 @@ public class Newspaper extends Item {
     }
 
     public void displayDetails(){
-        System.out.println("ID: "+ id + " Title: " + title + " by Company: " + publisherCompany + " on "+date);
+        System.out.println("ID: "+ id + " Title: " + title + " by Company: " + publisherCompany + " on "+date+ " with popularity at: "+ popularityCount + " priced at : $"+ itemPrice);
     }
 }
