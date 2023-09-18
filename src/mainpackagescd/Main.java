@@ -48,9 +48,13 @@ public class Main {
 //        library.dynamicallyIdentify(akhbaar);
         //...............................................................................................
 
-        Borrower b1 = new Borrower("HarreyBe");
-        l1.borrowItem(b1);
-        l1.borrowItem(b1);
+//        Borrower b1 = new Borrower("HarreyBe");
+//        l1.borrowItem(b1);
+//        l1.borrowItem(b1);
+
+        //...............................................................................................
+
+        l1.displayMenu();
 
 
     }

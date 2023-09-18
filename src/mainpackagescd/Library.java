@@ -1,9 +1,6 @@
 package mainpackagescd;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class Library {
 
@@ -80,7 +77,7 @@ public class Library {
 
         return regex;
     }
-    int viewMagzineByID(int id){
+    int viewMagazineByID(int id){
         int regex = -1;
 
         for(int i=0;i<magazines.size();i++){
@@ -218,27 +215,38 @@ public class Library {
 
         while (true){
             System.out.println("\nLibrary Management System Menu:");
-            System.out.println("1. Add Book");
-            System.out.println("2. Edit Book");
-            System.out.println("3. Delete Book");
-            System.out.println("4. View All Books");
-            System.out.println("5. View Book by ID");
-            System.out.println("6. Exit");
+            System.out.println("1. Hot Picks!");
+            System.out.println("2. Borrow an item");
+            System.out.println("3. Add Item");
+            System.out.println("4. Edit Item");
+            System.out.println("5. Delete Item");
+            System.out.println("6. View All Items");
+            System.out.println("7. View Item by ID");
+            System.out.println("8. View Borrowers List");
+            System.out.println("9. Exit");
             System.out.println("Enter your choice: ");
             choice = sc.nextInt();
 
             if(choice==1){
-                this.addBook();
+                this.hotPick();
             } else if (choice==2) {
-                this.editBook();
+                System.out.println("Enter your name: ");
+                Scanner scanner = new Scanner(System.in);
+                String name = scanner.nextLine();
+                Borrower borrower = new Borrower(name);
+                this.borrowItem(borrower);
             } else if (choice==3) {
-                this.deleteBook();
+                this.addBook();
             } else if (choice==4) {
-                this.displayBooks();
+                this.editBook();
             } else if (choice==5) {
-                System.out.println("Enter ID of Book to View: ");
-                int id = sc.nextInt();
-                this.viewBookByID(id);
+                this.deleteBook();
+            } else if (choice==6) {
+                this.displayBooks();
+            } else if (choice==7) {
+                this.viewItemByID();
+            } else if (choice==8) {
+                this.viewBorrowerList();
             } else {
                 System.out.println("Thanks for using our Software");
                 break;
@@ -289,7 +297,9 @@ public class Library {
                     books.get(regex).isBorrowed = true;
                     borrower.borrowedItems.add(books.get(regex));
                     books.get(regex).popularityCount++;
+                    borrowers.add(borrower);
                     System.out.println("Person: "+borrower.name+" has borrowed book: "+books.get(regex).title);
+                    System.out.println("The total bill is : "+ books.get(regex).calculatePrice());
                 }
                 else {
                     System.out.println("Item is already borrowed");
@@ -308,13 +318,15 @@ public class Library {
             System.out.print("\nEnter ID: ");
             ID = sc.nextInt();
 
-            int regex = this.viewMagzineByID(ID);
+            int regex = this.viewMagazineByID(ID);
             if(regex!=-1){
                 if(!magazines.get(regex).isBorrowed){
                     magazines.get(regex).isBorrowed = true;
                     borrower.borrowedItems.add(magazines.get(regex));
                     magazines.get(regex).popularityCount++;
+                    borrowers.add(borrower);
                     System.out.println("Person: "+borrower.name+" has borrowed magazine: "+magazines.get(regex).title);
+                    System.out.println("The total bill is : "+ magazines.get(regex).calculatePrice());
                 }
                 else {
                     System.out.println("Item is already borrowed");
@@ -339,7 +351,9 @@ public class Library {
                     newspapers.get(regex).isBorrowed = true;
                     borrower.borrowedItems.add(newspapers.get(regex));
                     newspapers.get(regex).popularityCount++;
+                    borrowers.add(borrower);
                     System.out.println("Person: "+borrower.name+" has borrowed newspaper: "+newspapers.get(regex).title);
+                    System.out.println("The total bill is : "+ newspapers.get(regex).calculatePrice());
                 }
                 else {
                     System.out.println("Item is already borrowed");
@@ -348,5 +362,127 @@ public class Library {
 
         }
 
+    }
+
+    //...........................................................................................
+
+    void hotPick(){
+        int option = -1;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("What do you want to borrow: \n1. Book\n2. Magazine \n3. Newspaper\nEnter Serial No:");
+        option = sc.nextInt();
+
+        if(option==1){
+            List<Book> backup = new ArrayList<>(books.size());
+            backup.addAll(books);
+
+            for (int i = 0; i < backup.size() - 1; i++) {
+                for (int j = 0; j < backup.size() - i - 1; j++) {
+                    if (backup.get(j).popularityCount < backup.get(j + 1).popularityCount) {
+                        // Swap arr[j] and arr[j+1]
+                        Book temp = backup.get(j);
+                        backup.set(j, backup.get(j + 1));
+                        backup.set(j + 1, temp);
+                    }
+                }
+            }
+
+            System.out.println("The Hot Pics of The Time are: ");
+            for (Book book : backup) {
+                book.displayDetails();
+            }
+        }
+        else if (option==2) {
+            List<Magazine> backup = new ArrayList<>(magazines.size());
+            backup.addAll(magazines);
+
+            for (int i = 0; i < backup.size() - 1; i++) {
+                for (int j = 0; j < backup.size() - i - 1; j++) {
+                    if (backup.get(j).popularityCount < backup.get(j + 1).popularityCount) {
+                        // Swap arr[j] and arr[j+1]
+                        Magazine temp = backup.get(j);
+                        backup.set(j, backup.get(j + 1));
+                        backup.set(j + 1, temp);
+                    }
+                }
+            }
+
+            System.out.println("The Hot Pics of The Time are: ");
+            for (Magazine magazine : backup) {
+                magazine.displayDetails();
+            }
+        }
+        else if (option==3) {
+            List<Newspaper> backup = new ArrayList<>(newspapers.size());
+            backup.addAll(newspapers);
+
+            for (int i = 0; i < backup.size() - 1; i++) {
+                for (int j = 0; j < backup.size() - i - 1; j++) {
+                    if (backup.get(j).popularityCount < backup.get(j + 1).popularityCount) {
+                        // Swap arr[j] and arr[j+1]
+                        Newspaper temp = backup.get(j);
+                        backup.set(j, backup.get(j + 1));
+                        backup.set(j + 1, temp);
+                    }
+                }
+            }
+
+            System.out.println("The Hot Pics of The Time are: ");
+            for (Newspaper newspapers : backup) {
+                newspapers.displayDetails();
+            }
+        }
+    }
+    void viewBorrowerList(){
+        System.out.println("Here are the borrowers: ");
+        int i=1;
+        for (Borrower borrower : borrowers) {
+            System.out.println("Borrower # "+i+": "+borrower.name);
+            borrower.displayBorrowedItems();
+            i++;
+        }
+    }
+    void viewItemByID(){
+        int option = 1;
+        int ID = -1;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("What do you want to borrow: \n1. Book\n2. Magazine \n3. Newspaper\nEnter Serial No:");
+        option = sc.nextInt();
+
+        if(option==1){
+            System.out.println("Which book do you want to delete: ");
+
+            for (Book book : books) {
+                System.out.println("ID: " + book.id + " Book: " + book.title + " written by : " + book.author + "(" + book.year + ")");
+            }
+
+            System.out.print("\nEnter ID: ");
+            ID = sc.nextInt();
+
+            this.viewBookByID(ID);
+        } else if (option==2) {
+            System.out.println("Which magazine do you want to delete: ");
+
+            for (Magazine magazine : magazines) {
+                magazine.displayDetails();
+            }
+
+            System.out.print("\nEnter ID: ");
+            ID = sc.nextInt();
+
+            this.viewMagazineByID(ID);
+        } else if (option==3) {
+            System.out.println("Which newspaper do you want to delete: ");
+
+            for (Newspaper newspaper : newspapers) {
+                newspaper.displayDetails();
+            }
+
+            System.out.print("\nEnter ID: ");
+            ID = sc.nextInt();
+
+            this.viewNewsPaperByID(ID);
+        }
     }
 }

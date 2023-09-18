@@ -11,4 +11,8 @@ package mainpackagescd;
     public void displayDetails(){
 
     }
+    @Override
+    public double calculatePrice(){
+       return 0.0;
+    }
 }

@@ -5,7 +5,7 @@ public class Newspaper extends Item {
     String publisherCompany;
     String date;
 
-    Newspaper(String t, String d, String pC){
+    Newspaper(String t, String d, String pC){ 
 
         itemType = 3;
         id = nextId++;
@@ -29,5 +29,10 @@ public class Newspaper extends Item {
 
     public void displayDetails(){
         System.out.println("ID: "+ id + " Title: " + title + " by Company: " + publisherCompany + " on "+date+ " with popularity at: "+ popularityCount + " priced at : $"+ itemPrice);
+    }
+
+    @Override
+    public double calculatePrice() {
+        return 10+5;
     }
 }

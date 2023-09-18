@@ -34,4 +34,9 @@ public class Magazine extends Item {
             System.out.println(author);
         }
     }
+
+    @Override
+    public double calculatePrice() {
+        return itemPrice*popularityCount;
+    }
 }

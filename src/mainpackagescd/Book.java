@@ -20,16 +20,23 @@ public class Book extends Item {
 
     Book(int iT, int i, String t, String a, int y, int pC, int p$){
 
-        itemType = 1;
-        id = nextId++;
+        itemType = iT;
+        id = i;
         title = t;
         author = a;
         year = y;
+        popularityCount = pC;
+        itemPrice = p$;
 
         System.out.print("New Book Added: ");
     }
 
     public void displayDetails(){
         System.out.println("ID: "+ id + " Title: " + title + " by Author: " + author + "(" + year + ") with popularity: " + popularityCount + " priced at : $"+ itemPrice);
+    }
+
+    @Override
+    public double calculatePrice() {
+        return (itemPrice + (itemPrice*20)/100 + 200);
     }
 }
