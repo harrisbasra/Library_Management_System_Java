@@ -1,0 +1,5 @@
+Mag1,AuthorA,AuthorB,AuthorC.,Comp1,4,280
+Mag2,Author1,Author2,Author3.,Comp2,3,210
+Mag3,AuthorI,AuthorII,AuthorIII.,Comp3,8,460
+Mag4,AuthorOne,AuthorTwo,AuthorThree.,Comp4,9,510
+Mag5,AuthorFirst,AuthorSecond,AuthorThird.,Comp5,11,1250
