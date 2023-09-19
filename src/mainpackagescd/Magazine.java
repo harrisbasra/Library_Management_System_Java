@@ -5,25 +5,29 @@ public class Magazine extends Item {
     String publisherCompany;
     String[] authors;
 
-    Magazine(String t, String[] a, String pC){
+    Magazine(String t, String[] a, String pC, int price, int popC){
 
         itemType = 2;
         id = nextId++;
         title = t;
         authors = a;
         publisherCompany = pC;
+        itemPrice = price;
+        popularityCount = popC;
 
         System.out.print("New Book Added: ");
         this.displayDetails();
     }
 
-    Magazine(int i, String t, String[] a, String pC){
+    Magazine(int i, String t, String[] a, String pC, int price, int popC){
 
         itemType = 2;
         id = i;
         title = t;
         authors = a;
         publisherCompany = pC;
+        itemPrice = price;
+        popularityCount = popC;
 
         System.out.print("New Book Added: ");
     }

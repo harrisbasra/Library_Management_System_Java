@@ -5,24 +5,28 @@ public class Newspaper extends Item {
     String publisherCompany;
     String date;
 
-    Newspaper(String t, String d, String pC){ 
+    Newspaper(String t, String pC, int pCount,String d){
 
         itemType = 3;
         id = nextId++;
         title = t;
         date = d;
         publisherCompany = pC;
+        popularityCount = pCount;
+        itemPrice = 15;
 
         System.out.println("New Book Added: ID:"+ id + " Title: " + title + " by Company: " + publisherCompany + " on "+date);
     }
 
-    Newspaper(int i, String t, String d, String pC){
+    Newspaper(int i, String t, String d, String pC, int pCount){
 
         itemType = 3;
         id = i;
         title = t;
         date = d;
         publisherCompany = pC;
+        popularityCount = pCount;
+        itemPrice = 15;
 
         System.out.print("New Book Added: ");
     }

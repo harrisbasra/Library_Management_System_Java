@@ -12,7 +12,7 @@ public class Main {
 
         //..............................................................................................
 
-        Library l1 = new Library("books.txt");
+        Library l1 = new Library(new String[]{"books.txt", "magazines.txt", "newspapers.txt"});
 //        library.displayMenu();
 
         //..............................................................................................

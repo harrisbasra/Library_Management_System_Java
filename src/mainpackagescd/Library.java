@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Library {
 
-    String catalogueBackup;
+    String[] catalogueBackup;
     List<Book> books = new ArrayList<>();
     List<Magazine> magazines = new ArrayList<>();
     List<Newspaper> newspapers = new ArrayList<>();
@@ -12,10 +12,10 @@ public class Library {
 
     //..........................................................................................
 
-    Library(String fileName) {
+    Library(String[] fileName) {
 
         catalogueBackup = fileName;
-        String[] Books = Objects.requireNonNull(readFile(fileName)).split("\n");
+        String[] Books = Objects.requireNonNull(readFile(fileName[0])).split("\n");
 
         for (String book : Books) {
             String[] Elements = book.split(",");
@@ -23,13 +23,50 @@ public class Library {
         }
 
         System.out.println("Loaded Books from file books.txt");
+
+        String[] Magazines = Objects.requireNonNull(readFile(fileName[1])).split("\n");
+
+        for (String magazine : Magazines) {
+
+            String[] Elements = magazine.split(",");
+            List<String> authors = new ArrayList<>(Elements.length-4);
+            authors.addAll(Arrays.asList(Elements).subList(1, Elements.length - 2));
+            magazines.add(new Magazine(Elements[0], authors.toArray(new String[0]),Elements[Elements.length-2],Integer.parseInt(Elements[Elements.length-1]),Integer.parseInt(Elements[Elements.length-2])));
+        }
+
+        System.out.println("Loaded Magazines from file magazines.txt");
+
+        String[] Newspapers = Objects.requireNonNull(readFile(fileName[2])).split("\n");
+
+        for (String newspaper : Newspapers) {
+            String[] Elements = newspaper.split(",");
+            newspapers.add(new Newspaper(Elements[0], Elements[1], Integer.parseInt(Elements[2]), Elements[3]));
+        }
+
+        System.out.println("Loaded Newspapers from file newspapers.txt");
     }
-    void displayBooks(){
+    void displayItems(){
         System.out.println("This Library has following Books: ");
         int serialNumber = 1;
         for (int i=0;i<books.size();i++, serialNumber++){
             System.out.print(serialNumber+") ");
             books.get(i).displayDetails();
+        }
+        System.out.println();
+        System.out.println();
+        System.out.println("This Library has following Magazines: ");
+        serialNumber = 1;
+        for (int i=0;i<magazines.size();i++, serialNumber++){
+            System.out.print(serialNumber+") ");
+            magazines.get(i).displayDetails();
+        }
+        System.out.println();
+        System.out.println();
+        System.out.println("This Library has following NewsPapers: ");
+        serialNumber = 1;
+        for (int i=0;i<newspapers.size();i++, serialNumber++){
+            System.out.print(serialNumber+") ");
+            newspapers.get(i).displayDetails();
         }
     }
     void addBook(){
@@ -175,7 +212,7 @@ public class Library {
         String editedName = "";
         String editedAuthor = "";
 
-        System.out.println("Which book do you want to delete: ");
+        System.out.println("Which book do you want to edit: ");
 
         for (Book book : books) {
             System.out.println("ID: " + book.id + " Book: " + book.title + " written by : " + book.author + "(" + book.year + ")");
@@ -242,7 +279,7 @@ public class Library {
             } else if (choice==5) {
                 this.deleteBook();
             } else if (choice==6) {
-                this.displayBooks();
+                this.displayItems();
             } else if (choice==7) {
                 this.viewItemByID();
             } else if (choice==8) {
